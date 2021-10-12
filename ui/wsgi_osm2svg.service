@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance for osm2svg workers
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/osm2lbsvg
+Environment="PATH=/var/www/osm2lbsvg/venv/bin"
+ExecStart=/var/www/osm2lbsvg/venv/bin/uwsgi --ini osm2svg.ini
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=osm2svg workers
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/osm2lbsvg
+Environment="PATH=/var/www/osm2lbsvg/venv/bin"
+ExecStart=/var/www/osm2lbsvg/venv/bin/rq worker
+
+[Install]
+WantedBy=multi-user.target

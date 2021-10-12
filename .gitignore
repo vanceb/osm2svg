@@ -1,0 +1,20 @@
+# The virtualenv directory
+venv
+
+# The data directory
+data
+*.osm
+*.svg
+
+# Credentials
+credentials.yaml
+
+# Python cache
+__pycache__
+*.pyc
+
+# vscode
+.vscode
+
+# Logs
+logs

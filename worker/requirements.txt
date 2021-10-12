@@ -1,0 +1,38 @@
+chardet
+decorator
+pip-chill
+pylint
+pyproj
+pyyaml
+requests
+rq
+numpy
+scikit-image
+typed-ast
+# astroid # Installed as dependency for pylint
+# certifi # Installed as dependency for pyproj, requests
+# charset-normalizer # Installed as dependency for requests
+# click # Installed as dependency for rq
+# cycler # Installed as dependency for matplotlib
+# idna # Installed as dependency for requests
+# imageio # Installed as dependency for scikit-image
+# isort # Installed as dependency for pylint
+# kiwisolver # Installed as dependency for matplotlib
+# lazy-object-proxy # Installed as dependency for astroid
+# matplotlib # Installed as dependency for scikit-image
+# mccabe # Installed as dependency for pylint
+# networkx # Installed as dependency for scikit-image
+# numpy # Installed as dependency for scikit-image, tifffile, pywavelets, matplotlib, scipy, imageio
+# pillow # Installed as dependency for matplotlib, scikit-image, imageio
+# platformdirs # Installed as dependency for pylint
+# pyparsing # Installed as dependency for matplotlib
+# python-dateutil # Installed as dependency for matplotlib
+# pywavelets # Installed as dependency for scikit-image
+# redis # Installed as dependency for rq
+# scipy # Installed as dependency for scikit-image
+# six # Installed as dependency for cycler, python-dateutil
+# tifffile # Installed as dependency for scikit-image
+# toml # Installed as dependency for pylint
+# typing-extensions # Installed as dependency for pylint, astroid
+# urllib3 # Installed as dependency for requests
+# wrapt # Installed as dependency for astroid

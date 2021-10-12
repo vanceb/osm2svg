@@ -1,0 +1,260 @@
+/* CSS Document */
+/**
+ * Global Reset of all HTML Elements
+ *
+ * Resetting all of our HTML Elements ensures a smoother
+ * visual transition between browsers. If you don't believe me,
+ * try temporarily commenting out this block of code, then go
+ * and look at Mozilla versus Safari, both good browsers with
+ * a good implementation of CSS. The thing is, all browser CSS
+ * defaults are different and at the end of the day if visual
+ * consistency is what we're shooting for, then we need to
+ * make sure we're resetting all spacing elements.
+ *
+ */
+html,
+body {
+  border: 0;
+  font-family: "Helvetica-Neue", "Helvetica", Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+div,
+span,
+object,
+iframe,
+img,
+table,
+caption,
+thead,
+tbody,
+tfoot,
+tr,
+tr,
+td,
+article,
+aside,
+canvas,
+details,
+figure,
+hgroup,
+menu,
+nav,
+footer,
+header,
+section,
+summary,
+mark,
+audio,
+video {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cit,
+code,
+del,
+dfn,
+em,
+ins,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+b,
+i,
+hr,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+legend,
+label {
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+}
+article,
+aside,
+canvas,
+figure,
+figure img,
+figcaption,
+hgroup,
+footer,
+header,
+nav,
+section,
+audio,
+video {
+  display: block;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table caption,
+table th,
+table td {
+  text-align: left;
+  vertical-align: middle;
+}
+a img {
+  border: 0;
+}
+:focus {
+  outline: 0;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  max-width: 1040px;
+  margin: 50px auto;
+  padding: 20px;
+  font-size: 1em;
+}
+.mapform {
+  display: flex;
+  flex-wrap: wrap;
+}
+.mapform .mapformsection {
+  width: 50%;
+}
+h1 {
+  margin: 10px 0 8px 0;
+  font-size: 1.6em;
+  font-weight: 200;
+}
+h3 {
+  margin: 10px 0 8px 0;
+  font-size: 1.3em;
+}
+input[type=text].number {
+  width: 20% ;
+}
+input[type=email],
+input[type=text] {
+  display: inline-block;
+  width: 60%;
+  padding: 4px 10px;
+  margin-bottom: 6px;
+  font-size: 1em;
+}
+label {
+  display: inline-block;
+  width: 40%;
+}
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 100%;
+  line-height: 130%;
+}
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#mapid {
+  height: 600px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.bigbutton {
+  padding: 10px 24px;
+  font-size: 1.1em;
+  background-color: #CFFC99;
+  margin: 20px 0;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  display: block;
+}
+.bigbutton:hover {
+  background-color: #7BD80E;
+}
+.bigbutton.inactive {
+  cursor: default;
+  background-color: #D4D4D4;
+  color: #686868;
+}
+#generating {
+  padding: 10px 24px;
+  font-size: 1.1em;
+  background-image: url("/static/img/generating.gif");
+  background-size: cover;
+  background-position: center center;
+  margin: 20px 0;
+  color: black;
+  display: block;
+}
