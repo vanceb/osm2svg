@@ -6,8 +6,6 @@ from redis import Redis
 from rq.job import Job, JobStatus
 from rq.exceptions import NoSuchJobError
 
-import job
-
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -20,14 +18,14 @@ def index():
             result = {"Error": "Unable to parse json job request"}
             return jsonify(result), 400
 
-        result = q.enqueue(job.run_job, app.config["MAP_CONFIG"], job_def)
+        result = q.enqueue("job.run_job", app.config["MAP_CONFIG"], job_def)
         return result.id
 
 
 @app.route('/<id>', methods=['GET'])
 def get_result(id):
     try:
-        mapjob = Job.fetch(id, connection=Redis())
+        mapjob = Job.fetch(id, connection=Redis(host="redis", port="6379"))
     except NoSuchJobError:
         return abort(404) 
 

@@ -18,7 +18,6 @@ mccabe
 networkx
 numpy
 Pillow
-pkg-resources
 pylint
 pyparsing
 pyproj

@@ -1,9 +1,6 @@
 # syntax=docker/dockerfile:1
 FROM debian:11
 
-RUN mkdir /data
-COPY ./data/ /data/
-
 RUN mkdir /app
 WORKDIR /app
 
@@ -17,7 +14,7 @@ RUN pip install --upgrade wheel
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY *.py LICENSE README.md ./
+COPY ./ ./
 
-CMD [ "/usr/local/bin/rq", "worker", "-u", "redis://redis:6379" ]
+CMD [ "flask", "run", "--host=0.0.0.0" ]
 #CMD [ "sleep", "86400" ]

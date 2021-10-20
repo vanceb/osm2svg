@@ -3,11 +3,11 @@ import os
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'K@35emzx%9%sco8H'
     MAP_CONFIG = {
-        "options": {"datadir": "./data"},
+        "options": {"datadir": "/data"},
         "srtm": {
             "options": {
-                "datadir": "./data/srtm",
-                "credentials": "./conf/credentials.yaml"
+                "datadir": "/data/srtm",
+                "credentials": "../conf/credentials.yaml"
             },
             "data": {
                 "url_template": "https://e4ftl01.cr.usgs.gov/MEASURES/SRTMGL1.003/2000.02.11/<GRID>.SRTMGL1.hgt.zip",

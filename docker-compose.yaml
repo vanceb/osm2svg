@@ -1,0 +1,14 @@
+services:
+  redis:
+    image: "redis"
+  osm2svg:
+    image: "osm2svg"
+    depends_on: 
+      - "redis"
+  osm2svgapi:
+    image: "osm2svgapi"
+    depends_on:
+      - "redis"
+    ports:
+      - "5000:5000"
+    

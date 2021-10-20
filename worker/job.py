@@ -26,11 +26,11 @@ def run_job(config, jobspec, osmfile=None):
             user = jobspec["user"]["name"]
         else:
             user = "Anonymous"
-    log.info("Starting job for {} <{}>" + user, jobspec["user"]["email"])
+    log.info("Starting job for {} <{}>".format(user, jobspec["user"]["email"]))
 
     # Save the job
     jobfile = user + '_{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + ".json"
-    jobfile = os.path.abspath(os.path.join(config["options"]["datadir"], jobfile))
+    jobfile = os.path.abspath(os.path.join(config["options"]["datadir"], "jobs", jobfile))
     with open (jobfile, "w") as f:
         json.dump(jobspec, f)
 
@@ -90,10 +90,6 @@ def run_job(config, jobspec, osmfile=None):
 
 
 def main():
-    common.setup_logging()
-    log = logging.getLogger(__name__)
-    log.info("Overpass - Starting")
-
     # Set up command line interface
     parser = ArgumentParser()
     parser.add_argument(
@@ -101,10 +97,16 @@ def main():
             help="The filename of the job spec json file."
             )
     parser.add_argument(
-            "--config", 
-            dest="configfile",
-            default="conf/all.yaml",
-            help="Config file to use. Defaults to ./conf/all.yaml"
+            "--datadir", 
+            dest="datadir",
+            default="/data",
+            help="Base data directory under which we expect to find the `conf` and `logs` directories"
+            )
+    parser.add_argument(
+            "--config",
+            dest="config",
+            default="all.yaml",
+            help="The config file to use, defaults to all.yaml"
             )
     parser.add_argument(
             "--saveosm",
@@ -118,6 +120,22 @@ def main():
     args = parser.parse_args()
 
     # Get the full filenames
+    datadir = os.path.abspath(args.datadir)
+    logsdir = os.path.join(datadir, "logs")
+    confdir = os.path.join(datadir, "conf")
+    if os.path.isfile(args.config):
+        config_file = args.config
+    else:
+        config_file = os.path.join(datadir, "conf", args.config)
+        if not os.path.isfile(config_file):
+            raise FileNotFoundError("The config file could not be found")
+
+    # Configure logging
+    log_conf = os.path.join(confdir, "logging.yaml")
+    common.setup_logging(default_path=log_conf)
+    log = logging.getLogger(__name__)
+    log.info("OSM2SGV - Starting")
+
     if args.jobspec:
         jobfile = os.path.abspath(args.jobspec)
     else:
@@ -130,10 +148,8 @@ def main():
     if args.saveosm is not None:
         osmfile = job + ".osm"
 
-    configfile = os.path.abspath(args.configfile)
-
     # Load the config
-    config = common.load_config(configfile)
+    config = common.load_config(config_file)
 
     # Load the jobspec
     with open(jobfile, "r") as f:

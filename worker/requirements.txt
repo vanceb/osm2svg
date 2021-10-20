@@ -1,38 +1,25 @@
-chardet
-decorator
-pip-chill
-pylint
-pyproj
-pyyaml
-requests
-rq
-numpy
-scikit-image
-typed-ast
-# astroid # Installed as dependency for pylint
-# certifi # Installed as dependency for pyproj, requests
-# charset-normalizer # Installed as dependency for requests
-# click # Installed as dependency for rq
-# cycler # Installed as dependency for matplotlib
-# idna # Installed as dependency for requests
-# imageio # Installed as dependency for scikit-image
-# isort # Installed as dependency for pylint
-# kiwisolver # Installed as dependency for matplotlib
-# lazy-object-proxy # Installed as dependency for astroid
-# matplotlib # Installed as dependency for scikit-image
-# mccabe # Installed as dependency for pylint
-# networkx # Installed as dependency for scikit-image
-# numpy # Installed as dependency for scikit-image, tifffile, pywavelets, matplotlib, scipy, imageio
-# pillow # Installed as dependency for matplotlib, scikit-image, imageio
-# platformdirs # Installed as dependency for pylint
-# pyparsing # Installed as dependency for matplotlib
-# python-dateutil # Installed as dependency for matplotlib
-# pywavelets # Installed as dependency for scikit-image
-# redis # Installed as dependency for rq
-# scipy # Installed as dependency for scikit-image
-# six # Installed as dependency for cycler, python-dateutil
-# tifffile # Installed as dependency for scikit-image
-# toml # Installed as dependency for pylint
-# typing-extensions # Installed as dependency for pylint, astroid
-# urllib3 # Installed as dependency for requests
-# wrapt # Installed as dependency for astroid
+# Actually installed: pyyaml pyproj requests rq numpy scikit-image
+certifi==2021.10.8
+charset-normalizer==2.0.7
+click==8.0.3
+cycler==0.10.0
+idna==3.3
+imageio==2.9.0
+kiwisolver==1.3.2
+matplotlib==3.4.3
+networkx==2.6.3
+numpy==1.21.2
+Pillow==8.4.0
+pyparsing==2.4.7
+pyproj==3.2.1
+python-dateutil==2.8.2
+PyWavelets==1.1.1
+PyYAML==6.0
+redis==3.5.3
+requests==2.26.0
+rq==1.10.0
+scikit-image==0.18.3
+scipy==1.7.1
+six==1.16.0
+tifffile==2021.10.12
+urllib3==1.26.7
