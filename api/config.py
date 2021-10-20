@@ -7,7 +7,7 @@ class Config(object):
         "srtm": {
             "options": {
                 "datadir": "/data/srtm",
-                "credentials": "../conf/credentials.yaml"
+                "credentials": "/data/conf/credentials.yaml"
             },
             "data": {
                 "url_template": "https://e4ftl01.cr.usgs.gov/MEASURES/SRTMGL1.003/2000.02.11/<GRID>.SRTMGL1.hgt.zip",
