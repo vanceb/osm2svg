@@ -1,6 +1,6 @@
 # osm2svg
 
-Convert [openstreetmap.org](https://openstreetmap.org)] data into an svg file suitable for lasercutting or other potential uses.
+Convert [openstreetmap.org](https://openstreetmap.org) data into an svg file suitable for lasercutting or other potential uses.
 
 ## Configuration
 
