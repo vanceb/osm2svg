@@ -1,8 +1,10 @@
 # The virtualenv directory
 venv
 
-# The data directory
-data
+# The ephemeral directories
+logs
+srtm
+jobs
 *.osm
 *.svg
 
@@ -15,6 +17,3 @@ __pycache__
 
 # vscode
 .vscode
-
-# Logs
-logs

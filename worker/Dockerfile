@@ -1,8 +1,11 @@
 # syntax=docker/dockerfile:1
 FROM debian:11
 
-RUN mkdir /data
-COPY ./data/ /data/
+RUN mkdir -p /data/conf
+RUN mkdir -p /data/logs
+RUN mkdir -p /data/jobs
+RUN mkdir -p /data/srtm
+COPY ./data/conf/ /data/conf/
 
 RUN mkdir /app
 WORKDIR /app
@@ -20,4 +23,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY *.py LICENSE README.md ./
 
 CMD [ "/usr/local/bin/rq", "worker", "-u", "redis://redis:6379" ]
-#CMD [ "sleep", "86400" ]

@@ -1,0 +1,154 @@
+# Vance's Rules for transforming OSM into Lightburn laser cutter compatible files
+#
+#
+# Lightburn layer colours
+#
+# Layer	Colour		  RGB   		Feature type
+# ------------------------------------------------------------
+# 1     Black       #000000
+# 2     Royal Blue  #6200FF		motorway
+# 3     Red         #FF0000		major roads
+# 4     Lime Green  #00F700
+# 5     Dirty Green	#C3DE00		buildings
+# 6		  Orange  		#FF7800		residential
+# 7		  Cyan		    #00E7E0		water
+# 8		  Magenta		  #FF00FF   coastline
+# 9		  Grey		    #B3B3B3		footpaths
+# 10		Dark Blue	  #3D00A1		sea
+# 11		Dark Red	  #A80000		minor roads
+# 12		Dark Green	#00AF00		forests
+# 13		Dark DG		  #95AA00		tracks
+# 14		Dark Orange	#C18200		contour lines
+# 15		Sky Blue	  #348CFF   airstrips
+# 16		Purple		  #B000A0		
+# 17    Dark Grey   #7F7F7F   railway
+# 32    Sand        #FCE45F   sand
+#
+#
+# Items listed under the "ways" level are not filled
+#     These should start with "./way" in the xpath
+#
+# Items listed under the "areas" level are closed and filled
+#     These should usually start with "./way" in the xpath, but
+#     make sure that they are items that are normally areas
+#     like "forests", or "landuse" items
+#     You may sometimes use a "./relation" here, but see the 
+#     caveats below about the use of complex items
+#
+# Items listed under the "complex" level are complex :-)
+#     These should start with "./relation" in the xpath
+#     These items can be islands in a river for example.
+#     You may get varying quality of results from these items
+#     Use these with caution and check the output carefully...
+#
+#
+# To find out the tags used in openstreetmap to define each type of item search
+# for "openstreetmap tag _____". This should give you an idea of the tags used
+# and any alternatives you may want to try.
+#
+# Where I have listed examples in each section they are generally more generic
+# at the top and more specific (and/or complex) lower down
+#
+# If you don't want to include a layer in the svg just comment it out (but
+# maintain the yaml format).  If you leave it in it will take time to be
+# processed, but you can always delete it in LightBurn or Inkscape later.
+
+
+layers:
+  forests:
+    attrib:
+      stroke: "none"
+      stroke-width: "0.2"
+      fill: "#00AF00"
+    areas:
+      wood: "natural=wood"
+      forest: "landuse=forest"
+    complex:
+      wood: "natural=wood"
+      forest: "landuse=forest"
+  sands:
+    attrib:
+      stroke: "none"
+      stroke-width: "0.2"
+      fill: "#FCE45F"
+    areas:
+      sand: "natural=sand"
+      beach: "natural=beach"
+      dume: "natural=dune"
+    complex:
+      sand: "natural=sand"
+      beach: "natural=beach"
+      dume: "natural=dune"
+  waterways:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#00E7E0"
+      fill: "none"
+    ways:
+      water: "natural=water"
+  water:
+    attrib:
+      stroke: none
+      stroke-width: "0.2"
+      fill: "#00E7E0"
+    areas:
+      water: "natural=water"
+    complex:
+      waterway: waterway
+      water: "natural=water"
+  contours:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#C18200"
+      fill: none
+    ways:
+      contour: "contour=elevation"
+  residential:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#FF7800"
+      fill: none
+    ways:
+      residential: "highway=residential"
+  minor_roads:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#A80000"
+      fill: none
+    ways:
+      tertiary: "highway=tertiary"
+      unclassified: "highway=unclassified"
+  major_roads:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#FF0000"
+      fill: none
+    ways:
+      trunk: "highway=trunk"
+      trunk_link: "highway=trunk_link"
+      primary: "highway=primary"
+      primary_link: "highway=primary_link"
+      secondary: "highway=secondary"
+      secondary_link: "highway=secondary_link"
+  motorways:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#6200FF"
+      fill: none
+    ways:
+      motorway: "highway=motorway"
+      motorway_link: "highway=motorway_link"
+  railways  :
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#7F7F7F"
+      fill: none
+    ways:
+      railway: "railway"
+  coastline:
+    attrib:
+      stroke-width: "0.2"
+      stroke: "#FF00FF"
+      fill: none
+    ways:
+      coastline: "natural=coastline"
