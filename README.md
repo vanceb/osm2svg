@@ -1,5 +1,6 @@
 # osm2svg
-Convert [openstreetmap.org[(https://openstreetmap.org)] data into an svg file suitable for lasercutting or other potential uses.
+
+Convert [openstreetmap.org](https://openstreetmap.org)] data into an svg file suitable for lasercutting or other potential uses.
 
 ## Configuration
 
@@ -17,13 +18,16 @@ Follow the instructions [here](https://docs.docker.com/engine/install/)
 
 ### Download from github
 
+~~~sh
 git clone https://github.com/vanceb/osm2svg.git
+~~~
 
 ### Build the worker container
 
-If you created an account to allow the download of the SRTM data to create contours then you need to place these credentials in the file 
+If you created an account to allow the download of the SRTM data to create contours then you need to place these credentials in the file.
 
 `osm2svg/worker/data/conf/credentials.yaml`
+
 ~~~sh
 username: "<your username>"
 password: "<your password>"
