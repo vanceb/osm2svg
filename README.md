@@ -66,3 +66,19 @@ Go to [http://localhost:5000](http://localhost:5000) to use the simple UI
 Place this server behind an nginx or other proxy.
 
 Write a better UI...
+
+## Upgrading
+
+Get the latest version, rebuild the 2 containers, fire them up...
+
+~~~sh
+docker-compose down
+cd osm2svg
+git pull
+cd api
+docker build -t osm2svgapi .
+cd ../worker
+docker build -t osm2svg .
+cd ..
+docker-compose up
+~~~
