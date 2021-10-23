@@ -304,10 +304,10 @@ $(document).ready(function(){
 					// Inserting the response from server into an HTML element
 					document.getElementById("response").innerHTML = JSON.stringify(this.responseText);
 
-					urlstring = "/" + this.responseText;
+					urlstring = "/job/" + this.responseText;
 
 					$("#downloadbutton").attr("href", urlstring);
-					$("#downloadbutton").attr("download", this.responseText + ".svg");
+					$("#downloadbutton").attr("download", "/job/" + this.responseText + ".svg");
 
 					mapinterval = setInterval("checkmapsvg(urlstring)", 5000);
 				}
