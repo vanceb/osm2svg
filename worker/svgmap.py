@@ -188,7 +188,7 @@ def osm_to_svg(osmdata, config, x_mm=None, y_mm=None, scale=None, no_inkscape=Fa
     svg = svgdata.get_svg()
 
     # Add OSM Copyright and attribution
-    svg.insert(0, svg_attribution(y_mm, x_mm))
+    svg.append(svg_attribution(y_mm, x_mm))
     svg.insert(0, txt_attribution())
 
     # Clip svg to viewBox
