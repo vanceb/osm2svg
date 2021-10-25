@@ -1,8 +1,10 @@
 import os
 import sys
 import re
+import socket
 import logging
 import logging.config
+from logging.handlers import RotatingFileHandler
 import yaml
 import json
 import copy
@@ -18,8 +20,18 @@ import svgmap
 
 
 def run_job(config, jobspec, osmfile=None):
+    host = socket.gethostname()
     log = logging.getLogger(__name__)
-    start = time.time()
+    file_handler = RotatingFileHandler(
+                    '/data/logs/wk-' + host + '.log',
+                    maxBytes=1024000,
+                    backupCount=10)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s'))
+    file_handler.setLevel(logging.INFO)
+    log.addHandler(file_handler)
+    log.setLevel(logging.INFO)
+    t_start = time.time()
 
     if "user" in jobspec:
         if "email" in jobspec["user"] and "name" in jobspec["user"]:
@@ -27,6 +39,7 @@ def run_job(config, jobspec, osmfile=None):
         else:
             user = "Anonymous"
     log.info("Starting job for {} <{}>".format(user, jobspec["user"]["email"]))
+    log.info(json.dumps(jobspec))
 
     # Save the job
     jobfile = user + '_{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + ".json"
@@ -66,6 +79,9 @@ def run_job(config, jobspec, osmfile=None):
     if x_mm is None and y_mm is None:
         x_mm = 200.0
 
+    # Time the setup stage
+    t_setup = time.time() - t_start
+
     # Get the data from overpass
     osm = overpass.get_osm(minlat, minlon, maxlat, maxlon, config)
 
@@ -75,16 +91,25 @@ def run_job(config, jobspec, osmfile=None):
             tree = ET.ElementTree(osm)
             tree.write(f, encoding="UTF-8", xml_declaration=True)
 
+    # Time the overpass stage
+    t_overpass = time.time() - t_start - t_setup
             
     # Get the contour lines if wanted
     if "contours" in jobspec["layers"]:
         contours.add_contours(config["srtm"], interval, minlat, minlon, maxlat, maxlon, osm)
 
+    # Time the contours stage
+    t_contours = time.time() -t_start - t_setup - t_overpass
+
     # Create the svg map
     svg = svgmap.osm_to_svg(osm, config, x_mm, y_mm)
+
+    # Time the svg stage
+    t_svg = time.time() - t_start - t_setup - t_overpass - t_contours
+
     
-    end = time.time()
-    log.info("Job for {} took {}".format(user, end - start))
+    t_end = time.time() - t_start
+    log.info("total: {:.3f}, setup: {:.3f}, overpass: {:.3f}, contours: {:.3f}, svg: {:.3f}".format(t_end, t_setup, t_overpass, t_contours, t_svg))
 
     return svg
 
