@@ -1,14 +1,37 @@
 services:
   redis:
     image: "redis"
-  osm2svg:
-    image: "osm2svg"
-    depends_on: 
-      - "redis"
   osm2svgapi:
     image: "osm2svgapi"
     depends_on:
       - "redis"
+    volumes:
+        - shared-data:/data
     ports:
       - "5000:5000"
-    
+  wrk1:
+    image: "osm2svg"
+    depends_on: 
+      - "redis"
+    volumes:
+        - shared-data:/data
+  wrk2:
+    image: "osm2svg"
+    depends_on: 
+      - "redis"
+    volumes:
+        - shared-data:/data
+  wrk3:
+    image: "osm2svg"
+    depends_on: 
+      - "redis"
+    volumes:
+        - shared-data:/data
+  wrk4:
+    image: "osm2svg"
+    depends_on: 
+      - "redis"
+    volumes:
+        - shared-data:/data
+volumes:    
+  shared-data:
