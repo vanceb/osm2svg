@@ -40,7 +40,15 @@ def ovp_query(config, bbox):
 
 
 def ovp_download(endpoint, query):
-    r = requests.post(endpoint, data=query)
+    log = logging.getLogger(__name__)
+    headers = {
+        'User-Agent': 'osm2svg/1.0 (github.com/vanceb/osm2svg)',
+        'Accept': '*/*',
+    }
+    r = requests.post(endpoint, data=query, headers=headers, timeout=120)
+    if r.status_code != 200:
+        log.error("Overpass API returned HTTP %d: %s", r.status_code, r.text[:500])
+        raise Exception(f"Overpass API error {r.status_code}: {r.text[:500]}")
     return r.content
 
 def get_osm(min_lat, min_lon, max_lat, max_lon, config):
@@ -53,9 +61,23 @@ def get_osm(min_lat, min_lon, max_lat, max_lon, config):
     query = ovp_query(config, bbox)
     log.info("Query: " + query)
 
-    # Get the data using the overpass API
-    log.info("Downloading data from " + config["overpass"]["endpoint"])
-    data = ovp_download(config["overpass"]["endpoint"], query)
+    # Get the data using the overpass API with retry/fallback support
+    endpoints = config.get("overpass", {}).get("endpoints", [config["overpass"]["endpoint"]])
+    last_error = None
+    data = None
+    for i, endpoint in enumerate(endpoints):
+        log.info("Downloading data from %s", endpoint)
+        try:
+            data = ovp_download(endpoint, query)
+            log.info("Successfully fetched OSM data from %s", endpoint)
+            break
+        except Exception as e:
+            last_error = e
+            log.warning("Failed to fetch from %s (attempt %d/%d): %s", endpoint, i+1, len(endpoints), e)
+            if i < len(endpoints) - 1:
+                log.info("Retrying with next endpoint...")
+                continue
+            raise Exception(f"All Overpass API endpoints failed. Last error: {last_error}")
 
     # Parse XML so we can add the "bounds" element
     log.info("Parsing XML")

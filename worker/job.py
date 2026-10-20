@@ -14,7 +14,7 @@ from argparse import ArgumentParser
 import xml.etree.ElementTree as ET
 
 import common
-import overpass
+import geofabrik
 import contours
 import svgmap
 
@@ -82,8 +82,8 @@ def run_job(config, jobspec, osmfile=None):
     # Time the setup stage
     t_setup = time.time() - t_start
 
-    # Get the data from overpass
-    osm = overpass.get_osm(minlat, minlon, maxlat, maxlon, config)
+    # Get the data from Geofabrik extract
+    osm = geofabrik.get_osm(minlat, minlon, maxlat, maxlon, config)
 
     # Save the osm data if needed
     if osmfile is not None:

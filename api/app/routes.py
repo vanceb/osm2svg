@@ -18,7 +18,7 @@ def index():
             result = {"Error": "Unable to parse json job request"}
             return jsonify(result), 400
 
-        result = q.enqueue("job.run_job", app.config["MAP_CONFIG"], job_def)
+        result = q.enqueue("job.run_job", app.config["MAP_CONFIG"], job_def, job_timeout=600)
         app.logger.info(str(result.id) + " => " + str(job_def))
         return result.id
 
@@ -45,7 +45,10 @@ def get_result(id):
         result = {"Status": "Started"}
     elif mapjob.is_failed:
         app.logger.info(str(id) + " =>  Failed")
-        result = {"Status": "Failed - Maybe timed out, please select a smaller area or fewer features"}
+        error_msg = str(mapjob.result) if mapjob.result else "Unknown error"
+        if mapjob.exc_info:
+            error_msg += " | " + mapjob.exc_info[:200]
+        result = {"Status": "Failed - " + error_msg}
     elif mapjob.is_deferred:
         result = {"Status": "Job deferred"}
 

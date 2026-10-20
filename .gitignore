@@ -15,5 +15,8 @@ credentials.yaml
 __pycache__
 *.pyc
 
+# Extracts (large binary downloads)
+worker/data/extracts/
+
 # vscode
 .vscode
